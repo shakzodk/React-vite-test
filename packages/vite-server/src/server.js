@@ -75,16 +75,6 @@ module.exports = function createServer(options) {
     });
     
     const serveModule = (res, name) => {
-        const filename = name === "@khanacademy/vite-helpers"
-            ? path.join(__dirname, "helpers.js")
-            : path.join(__dirname, '../../../node_modules', name);
-    
-        if (!fs.existsSync(filename)) {
-            logger.log(`${filename} doesn't exist`);
-            res.status(404);
-            res.end();
-        }
-    
         logger.log(`serving: ${name}`);
         if (name in cache) {
             res.type('js');
@@ -110,7 +100,7 @@ module.exports = function createServer(options) {
         serveModule(res, name);
     });
     
-    app.get("/node_modules/:scope/:module", (req, res) => {
+    app.get("/node_modules/:scope/:module.js", (req, res) => {
         const name = req.params.module;
         const scope = req.params.scope;
         serveModule(res, `${scope}/${name}`);
@@ -138,8 +128,10 @@ module.exports = function createServer(options) {
     
         const code = transformSync(src, {
             // use plugins and presets from vite-server
+            // TODO(kevninb): make this configurable
             plugins: [
                 require("@babel/plugin-proposal-class-properties"),
+                require("@babel/plugin-proposal-object-rest-spread"),
                 require("@babel/plugin-syntax-dynamic-import"), 
                 require("@babel/plugin-transform-flow-strip-types"), 
                 require("babel-plugin-istanbul"),
