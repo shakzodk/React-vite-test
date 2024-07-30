@@ -27,33 +27,6 @@ a `TAB` keypress event with JavaScript which is what `enzyme` does.
 
 ## Configuration
 
-Example config:
-```
-  "jest": {
-    "testRegex": "/test/.+\\.js$",
-    "testEnvironment": "@khanacademy/jest-environment-vite",
-    "testEnvironmentOptions": {
-      "capabilities": {
-        "browserName": "chrome",
-        "chromeOptions": {
-          "args": [
-            "headless",
-            "disable-gpu"
-          ]
-        }
-      },
-      "collectCoverage": true
-    },
-    "globalSetup": "@khanacademy/jest-environment-vite/dist/global-setup.js",
-    "globalTeardown": "@khanacademy/jest-environment-vite/dist/global-teardown.js",
-    "setupTestFrameworkScriptFile": "@khanacademy/jest-environment-vite/dist/setup.js",
-    "verbose": false,
-    "moduleNameMapper": {
-      "^@khanacademy/(.*)$": "<rootDir>/node_modules/@khanacademy/$1/dist/index.js"
-    }
-  }
-```
-
 You'lla
 
 **Notes**:
